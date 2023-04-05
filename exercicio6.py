@@ -1,16 +1,10 @@
-from scipy import misc
-from scipy import ndimage
-import numpy as np
 import matplotlib.pyplot as plt
 import imageio
 
-img=imageio.imread("baboon.png")
+def lvl(value,img):
+    return img >> value
 
-gama = 3.5
-
-lvl = 6
-
-newImg = img >>lvl
-
-plt.imshow(newImg, cmap = "gray")
-plt.show()
+for i in [1,2,3,4,5,6,7]:
+    img=imageio.imread("baboon.png")
+    img = lvl(i,img)
+    plt.imsave("resultados\exercicio6\\lvl{}.png".format(i), img, cmap = "gray")

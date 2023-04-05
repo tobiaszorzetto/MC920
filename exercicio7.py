@@ -1,14 +1,14 @@
-from scipy import misc
-from scipy import ndimage
 import numpy as np
 import matplotlib.pyplot as plt
 import imageio
 
+
 img=imageio.imread("baboon.png")
 
-lvl = 7
+def bitPlane(bit,img):
+    return np.bitwise_and(img,2**bit)
 
-newImg = np.bitwise_and(img,2**lvl)
-
-plt.imshow(newImg, cmap = "gray")
-plt.show()
+for i in range(8):
+    img=imageio.imread("baboon.png")
+    img = bitPlane(i,img)
+    plt.imsave("resultados\exercicio7\\bit{}.png".format(i), img, cmap = "gray")

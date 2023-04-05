@@ -1,12 +1,7 @@
-from scipy import misc
-from scipy import ndimage
 import numpy as np
-import matplotlib.pyplot as plt
 import cv2
 
-img1=cv2.imread("baboon.png")
-img2=cv2.imread("butterfly.png")
-img3=cv2.imread("city.png")
+img=cv2.imread("city.png")
 
 def invertOdds(img):
     img[1::2, :] = img[1::2, ::-1]
@@ -15,14 +10,8 @@ def negative(img):
     return np.add(255, - img)
 
 def transform(img):
-    print("normal")
-    print(img)
     img = np.multiply(100/255, img)
-    print("multiplied")
-    print(img)
     img = np.add(100, img)
-    print("sum 100")
-    print(img)
     return np.int16(img)
 
 def reflectRows(img):
@@ -32,10 +21,17 @@ def reflectRows(img):
 def verticalMirrowing(img):
     img[:,:] = img[::-1,:]
 
-#img3 = negative(img3)
-#img3 = transform(img3)
-#reflectRows(img3)
-verticalMirrowing(img3)
-plt.imshow(img3, cmap = "gray")
+invertedOddRows = cv2.imread("city.png")
+reflectedRows = cv2.imread("city.png")
+verticallyMirrowed = cv2.imread("city.png")
 
-plt.show()
+invertOdds(invertedOddRows)
+reflectRows(reflectedRows)
+verticalMirrowing(verticallyMirrowed)
+
+cv2.imwrite("resultados\exercicio3\\negative.png",negative(img))
+cv2.imwrite("resultados\exercicio3\\transformed.png",transform(img))
+cv2.imwrite("resultados\exercicio3\\invertedOddRows.png",invertedOddRows)
+cv2.imwrite("resultados\exercicio3\\reflectedRows.png",reflectedRows)
+cv2.imwrite("resultados\exercicio3\\verticallyMirrored.png",verticallyMirrowed)
+
